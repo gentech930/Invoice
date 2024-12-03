@@ -14,6 +14,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            overflow: hidden;
         }
         .container {
             background-color: white;
@@ -22,6 +23,7 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             width: 300px;
             text-align: center;
+            display: none; /* Initially hidden */
         }
         h2 {
             color: green;
@@ -44,15 +46,49 @@
         button:hover {
             background-color: #45a049;
         }
+
+        /* Loader Styles */
+        #loader {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: block;
+        }
+        .loader {
+            border: 16px solid #f3f3f3; /* Light gray */
+            border-top: 16px solid #3498db; /* Blue */
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
+
+<div id="loader" class="loader"></div>
 
 <div class="container">
     <h2>Invoice Sent Successfully!</h2>
     <p>Invoice email has been sent to <strong>{{email_to}}</strong>.</p>
     <button onclick="window.location.reload();">Resend Invoice</button>
 </div>
+
+<script>
+    // Function to simulate waiting for an API response (simulate an email sent)
+    setTimeout(function() {
+        // Hide the loader
+        document.getElementById('loader').style.display = 'none';
+        // Show the email sent container
+        document.querySelector('.container').style.display = 'block';
+    }, 3000); // Simulating a 3-second delay for the API response (can be adjusted)
+</script>
 
 </body>
 </html>
