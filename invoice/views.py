@@ -30,11 +30,30 @@ def create_docx(data_dict, output_dir):
 class Invoice(View):
     def get(self, request):
         data = {
-            "Title": "Report Title",
-            "Author": "John Doe",
-            "Content": "This is an example content.",
-            "Summary": "The summary of the document goes here."
-        }
+                "Title": "Monthly Invoice",
+                "Date": "December 1, 2024",
+                "Author": "Jane Doe",
+                "Introduction": (
+                    "This report provides an overview of the sales performance "
+                    "for the month of November 2024. Key metrics, trends, and "
+                    "recommendations are included to help improve future performance."
+                ),
+                "Key Metrics": {
+                    "Total Sales": "$50,000",
+                    "New Customers": 150,
+                    "Returning Customers": 120,
+                    "Average Order Value": "$250",
+                },
+                "Summary": (
+                    "Sales showed a 10% increase compared to October 2024. "
+                    "The number of new customers has grown, indicating a successful marketing campaign."
+                ),
+                "Recommendations": [
+                    "Increase the marketing budget for the holiday season.",
+                    "Focus on customer retention strategies to boost repeat purchases.",
+                    "Launch a loyalty program to reward returning customers."
+                ],
+            }
         output_dir = "/path/to/output/directory"
 
         pdf_path = create_docx(data, output_dir)
