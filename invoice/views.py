@@ -42,12 +42,12 @@ class Invoice(View):
         if os.path.exists(pdf_path):
             email_subject = "Invoice"
             email_body = "This is an invoice reminder "
-
+            email_to = "muhammadishaqskd224@gmail.com"
             email = EmailMessage(
                 subject=email_subject,
                 body=email_body,
                 from_email=settings.EMAIL_HOST_USER,
-                to=["muhammadishaqskd224@gmail.com"],  # User's email address
+                to=[email_to],  # User's email address
             )
 
             with open(pdf_path, 'rb') as pdf_file:
@@ -55,7 +55,11 @@ class Invoice(View):
 
             try:
                 email.send()
-                return JsonResponse({"message": "Email sent successfully!"}, status=200)
+                contex = {
+                    "email_to":email_to
+                }
+                return render(request, 'invoice.html', contex)
+                # return JsonResponse({"message": "Email sent successfully!"}, status=200)
             except Exception as e:
                 return JsonResponse({"error": str(e)}, status=500)
         else:
